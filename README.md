@@ -10,9 +10,7 @@ conda env create -f environment.yml
 
 Then, activate the environment:
 
-'''
-conda activate asm-pipeline-env
-'''
+'''conda activate asm-pipeline-env'''
 
 Finally, launch the pipeline with N cores:
 
