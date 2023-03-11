@@ -4,19 +4,21 @@ This is a simple snakemake pipeline to assemble and QC bacterial genomes from ox
 
 Currently this pipeline requires a manually installed conda environment named asm-pipeline-env, described by environment.yml.  Install this environment with either conda/mamba (mamba is significantly faster) by running:
 
-'''
+```
 conda env create -f environment.yml
-'''
+```
 
 Then, activate the environment:
 
-'''conda activate asm-pipeline-env'''
+```
+conda activate asm-pipeline-env
+```
 
 Finally, launch the pipeline with N cores:
 
-'''
+```
 snakemake -j N
-'''
+```
 
 
 
