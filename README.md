@@ -24,6 +24,7 @@ snakemake -j N
 
 
 Input requirements:
+
 This pipeline currently looks for reads in fastq.gz format in a folder 'input_reads' in the current directory.  It will create several directories:
 
 01-QC_inputs
