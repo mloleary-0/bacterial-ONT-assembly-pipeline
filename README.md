@@ -52,12 +52,13 @@ Both of these values could also changed by editing the respective values in conf
 
 This pipeline currently looks for reads in fastq.gz format in a folder 'input_reads' in the current directory.  It will create several directories:
 
-01-QC_inputs
-02-flye_assembly
-03-medaka_polish
-04-rotated
-05-checkM
-06-prokka_annotation
-07-assembly_QC
+01-QC_inputs  \
+02-flye_assembly  \
+03-medaka_polish  \
+04-rotated  \
+05-checkM  \
+06-prokka_annotation  \
+07-assembly_QC  
+  
 
 Results for each *.fastq.gz file will be in an individual folder, except for the results in 04-rotated (which is an intermediate, the rotated assembly can be found in 06-prokka_annotation) and 05-checkM (which is a summary of all polished, rotated assemblies)
