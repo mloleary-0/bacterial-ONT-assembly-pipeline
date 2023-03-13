@@ -22,9 +22,11 @@ shell.executable("/bin/bash")
 
 
 #---- Malleable variables ----#
-# Change this to the guppy_basecaller model used (or newest if not available).
+# Set these with --config
+# flyemethod = [nano-raw|nano-hq] (default: nano-raw)
+# guppymodel = (default: r941_min_high_g330)
+# readfmt = "fastq.gz"
 
-guppyversion = "r941_min_high_g330"
 
 #------------------------------#
 
@@ -43,6 +45,8 @@ circlator_out_dir = os.path.join(output_dir, "04-rotated")
 
 #---- Pipeline ----#
 
+configfile: "config/pipeline_config.yaml"
+
 rule all:
     input:
         "01-QC_inputs/fastqc/multiqc_report.html", # multiqc
@@ -53,6 +57,7 @@ rule all:
         expand("07-assembly_QC/read_mapping/{sample}/{sample}.idxstats.tab", sample = IDS), 
         expand("07-assembly_QC/read_mapping/{sample}/{sample}.reads.sorted.bam", sample = IDS),
         expand("07-assembly_QC/read_mapping/{sample}/{sample}.unmapped.fastq.gz", sample = IDS)
+
 
 #        expand("02-flye_assembly/{sample}/assembly.fasta", sample = IDS), # flye assembly
 #        expand("01-QC_inputs/fastqc/{sample}_fastqc.html", sample = IDS), # fastqc
@@ -93,8 +98,10 @@ rule flye_assembly:  # Note: change '--nano-raw' to '-nano-hq' if using guppy 5+
         "02-flye_assembly/{sample}/assembly.fasta"
     threads: 
         workflow.cores
+    params:
+        method = expand("{param}", param = config["flyemethod"])
     shell:
-        "flye --nano-raw {input.fastq} --out-dir 02-flye_assembly/{wildcards.sample} --threads {threads}" 
+        "flye --{params.method} {input.fastq} --out-dir 02-flye_assembly/{wildcards.sample} --threads {threads}" 
 
 
 rule medaka:
@@ -105,7 +112,7 @@ rule medaka:
     threads:
         workflow.cores
     params:
-        model = guppyversion,
+        model = config["guppymodel"],
         outdir = "03-medaka_polish/{sample}"
     run:
         shell("medaka_consensus -i {input.fastq} -d {input.assembly} -o {params.outdir} -t {threads} -m {params.model}") # TO-DO: modifiy the model so it can be user provided. r941_min_high_g330
