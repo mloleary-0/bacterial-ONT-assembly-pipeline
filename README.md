@@ -24,7 +24,10 @@ snakemake -j N
 
  \
  \
- **Modifiable Parameters**
+ **Modifiable Parameters**  
+ 
+  
+ 
 Medaka's 'medaka_consensus' program is used for polishing the flye assembly.  To obtain the best results, Medaka needs to know which model to use to correct assembly errors.  These models are based off a combination of flow cell, platform, and guppy version (e.g., "flow cell"_"sequencer"_"guppy basecall model + version"). **The default model for this pipeline is "r941_min_high_g330"**, which is appropriate for reads from an r 9.4.1 flow cell run on a MinIon using guppy_basecaller v3.3.0+ using the high accuracy model.  See the Medaka github for more details.  The 'medaka_consensus -h" command will print a list of available models - pick the newest one that is _not newer than the basecaller version and method you used___.  The default model can be overriden to use another model (in this example, r941_min_hac_g507):
 
 
