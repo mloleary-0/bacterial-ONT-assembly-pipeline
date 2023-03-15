@@ -8,6 +8,10 @@ This pipeline requires a manually installed conda environment named asm-pipeline
 ```
 conda env create -f config/environment.yml
 ```
+or
+``` 
+mamba env create -f config/environment.yml
+```
 
 Then, activate the environment:
 
